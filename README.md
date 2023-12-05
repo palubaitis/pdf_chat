@@ -1,3 +1,3 @@
-# pdf2chat 
+# pdf2chat
 
-A full stack application
+A full-stack application
