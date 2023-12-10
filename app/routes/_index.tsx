@@ -4,10 +4,12 @@ import { LoaderArgs } from "@remix-run/node";
 import { authenticator } from "~/services/auth.server";
 import { json } from "@remix-run/node";
 import { Button } from "@/components/ui/button";
-
+import FileUpload from "~/components/FileUpload";
+import { useLoaderData } from "@remix-run/react";
 export const meta: V2_MetaFunction = () => [{ title: "Remix Notes" }];
 
 export default function Index() {
+  const isAuthenticated = useLoaderData<typeof loader>();
   return (
     <main>
       <Header />
@@ -18,38 +20,13 @@ export default function Index() {
               <h1 className="mr-3 text-5xl font-semibold">Chat with any PDF</h1>
               {/* <UserButton afterSignOutUrl="/" /> */}
             </div>
-
-            <div className="flex mt-2">
-              {/* {isAuth && firstChat && (
-              <>
-                <Link href={`/chat/${firstChat.id}`}>
-                  <Button>
-                    Go to Chats <ArrowRight className="ml-2" />
-                  </Button>
-                </Link>
-                <div className="ml-3">
-                  <SubscriptionButton isPro={isPro} />
-                </div>
-              </>
-            )} */}
-            </div>
-
+            <div className="flex mt-2"></div>
             <p className="max-w-xl mt-1 text-lg text-slate-600">
               Join millions of students, researchers and professionals to
               instantly answer questions and understand research with AI
             </p>
-
             <div className="w-full mt-4">
-              {/* {isAuth ? (
-              <FileUpload />
-            ) : (
-              <Link href="/sign-in">
-                <Button>
-                  Login to get Started!
-                  <LogIn className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            )} */}
+              {isAuthenticated ? <FileUpload /> : <></>}
             </div>
           </div>
         </div>
