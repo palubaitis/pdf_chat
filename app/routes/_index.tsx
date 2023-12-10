@@ -1,5 +1,4 @@
 import type { V2_MetaFunction } from "@remix-run/node";
-import Pricing from "~/components/Pricing";
 import Header from "~/components/layout/Header";
 import { LoaderArgs } from "@remix-run/node";
 import { authenticator } from "~/services/auth.server";
