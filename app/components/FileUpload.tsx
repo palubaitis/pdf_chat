@@ -2,17 +2,18 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-hot-toast";
 
 export default function FileUpload() {
-    const { getRootProps, getInputProps } = useDropzone({
-        accept: { "application/pdf": [".pdf"] },
-        maxFiles: 1,
-        onDrop: async (acceptedFiles) => {
-          const file = acceptedFiles[0];
-          if (file.size > 10 * 1024 * 1024) {
-            // bigger than 10mb!
-            toast.error("File too large");
-            return;
-          }
-    
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "application/pdf": [".pdf"] },
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("File too large");
+        return;
+      }
+    },
+  });
+
   return (
     <div className="p-2 bg-white rounded-xl">
       <div
