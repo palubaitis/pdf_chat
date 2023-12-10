@@ -7,8 +7,6 @@ import {
 import { createId } from "@paralleldrive/cuid2";
 import { sql } from "drizzle-orm";
 
-export const userSystemEnum =pgEnum('user_system_enum')
-
 export const chats = sqliteTable("chats", {
   id: text("id").primaryKey(),
   pdf_name: text("pdf_name").notNull(),
