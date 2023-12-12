@@ -12,27 +12,32 @@ export async function uploadToS3(file: File) {
       region: "eu-north-1",
     });
 
-    const file_key = "uploads/" + Date.now().toString() + file.name.replace(" ", "-")
+    const file_key =
+      "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
 
-const params = {
-    Bucket: process.env.S3_BUCKET_NAME!,
-    Key:file.name,
-    Body:file
-}
+    const params = {
+      Bucket: process.env.S3_BUCKET_NAME!,
+      Key: file.name,
+      Body: file,
+    };
 
-const upload = s3.putObject(params).on('httpUploadProgress', evt => {
-    console.log("Uploading to s3",parseInt(((evt.loaded*100)/evt.total).toString())) + "%"
-}).promise()
+    const upload = s3
+      .putObject(params)
+      .on("httpUploadProgress", (evt) => {
+        console.log(
+          "Uploading to s3",
+          parseInt(((evt.loaded * 100) / evt.total).toString()),
+        ) + "%";
+      })
+      .promise();
 
-await upload.then(data => {
-    console.log("Uploaded to s3!", file_key)
-})
+    await upload.then((data) => {
+      console.log("Uploaded to s3!", file_key);
+    });
 
-return Promise.resolve({
-    file_key,
-    file_name:file.name
-})
-
+    return Promise.resolve({
+      file_key,
+      file_name: file.name,
+    });
   } catch (error) {}
 }
-
