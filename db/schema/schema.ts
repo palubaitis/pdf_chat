@@ -18,8 +18,10 @@ export const chats = sqliteTable("chats", {
 
 export const messages = sqliteTable("messages", {
   id: text("id").primaryKey(),
-  chat_id: integer("chat_id").references(() => chats.id).notNull(),
-  content: text('content').notNull(),
+  chat_id: integer("chat_id")
+    .references(() => chats.id)
+    .notNull(),
+  content: text("content").notNull(),
   timestamp: text("timestamp").default(sql`CURRENT_TIMESTAMP`),
   sender: text("sender", {
     enum: ["ai", "chatter", "creator"],
