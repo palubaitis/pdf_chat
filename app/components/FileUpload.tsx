@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function FileUpload  () {
+export default function FileUpload({
+  successToast,
+  errorToast,
+}: {
+  successToast: () => void;
+  errorToast: (errorMessage: string) => void;
+}) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,29 +21,32 @@ export default function FileUpload  () {
 
     if (selectedFile) {
       const formData = new FormData();
-      formData.append('upload', selectedFile);
+      formData.append("upload", selectedFile);
 
       try {
-        const response = await fetch('/upload', {
-          method: 'POST',
+        const response = await fetch("/upload", {
+          method: "POST",
           body: formData,
-          // Add headers if needed, like content type
         });
 
-        // Handle response as needed
         const data = await response.json();
-        console.log('Uploaded filename:', data.filename);
+        console.log("Uploaded filename:", data.filename);
+
+        successToast();
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error("Error uploading file:", error);
+        errorToast("Error uploading file. Please try again.");
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" onChange={handleFileChange} />
-      <button type="submit">Upload</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input type="file" onChange={handleFileChange} />
+        <button type="submit">Upload</button>
+      </form>
+      <Toaster />
+    </>
   );
-};
-
+}
