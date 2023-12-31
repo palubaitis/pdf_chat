@@ -41,12 +41,12 @@ export default function FileUpload({
   };
 
   return (
-    <>
+    <>    <Toaster />
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleFileChange} />
         <button type="submit">Upload</button>
       </form>
-      <Toaster />
+
     </>
   );
 }
